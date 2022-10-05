@@ -3,7 +3,7 @@ package pl.gispartner.ResourceManagerApp.api;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
-import pl.gispartner.ResourceManagerApp.model.ResourceEntity;
+import pl.gispartner.ResourceManagerApp.model.ResourceDto;
 import pl.gispartner.ResourceManagerApp.service.ResourceService;
 
 @RestController
@@ -13,13 +13,14 @@ public class ResourceController {
 
     private final ResourceService resourceService;
 
-    @PostMapping("/save")
-    public void saveResource (@RequestBody ResourceEntity resourceEntity){
-        resourceService.saveResource(resourceEntity);
+    @PostMapping
+    public Long saveResource(@RequestBody ResourceDto resourceDto) {
+        return resourceService.saveResource(resourceDto);
     }
-    @DeleteMapping("/delete")
-    public void deleteResource (@RequestBody ResourceEntity resourceEntity){
-        resourceService.deleteResource(resourceEntity);
+
+    @DeleteMapping("/{resourceId}")
+    public void deleteResource(@PathVariable("resourceId") Long resourceId) {
+        resourceService.deleteResource(resourceId);
     }
 
 }

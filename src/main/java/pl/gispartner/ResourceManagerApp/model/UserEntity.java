@@ -10,13 +10,14 @@ import javax.persistence.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
+@Builder
 public class UserEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long userId;
-    private String nickName;
     private String name;
+    private String firstName;
     private String lastName;
 
 //    @OneToMany

@@ -3,7 +3,7 @@ package pl.gispartner.ResourceManagerApp.api;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
-import pl.gispartner.ResourceManagerApp.model.UserEntity;
+import pl.gispartner.ResourceManagerApp.model.UserDto;
 import pl.gispartner.ResourceManagerApp.service.UserService;
 
 @RestController
@@ -13,16 +13,18 @@ public class UserController {
 
     private final UserService userService;
 
-    @PostMapping("/save")
-    public void saveUser(@RequestBody UserEntity userEntity){
-        userService.saveUser(userEntity);
+    @PostMapping
+    public Long saveUser(@RequestBody UserDto userDto) {
+        return userService.saveUser(userDto);
     }
-    @DeleteMapping("/delete")
-    public void deleteUser (@RequestBody UserEntity userEntity){
-        userService.deleteUser(userEntity);
+
+    @DeleteMapping("/{userId}")
+    public void deleteUser(@PathVariable("userId") Long userId) {
+        userService.deleteUser(userId);
     }
-    @PutMapping("/update")
-    public void updateUserNickName(@RequestBody UserEntity userEntity){
-        userService.updateUserNickName(userEntity.getUserId(), userEntity.getNickName());
+
+    @PutMapping("/{userId}")
+    public void updateUserName(@PathVariable("userId") Long userId, @RequestBody String newUserName) {
+        userService.updateUserName(userId, newUserName);
     }
 }
