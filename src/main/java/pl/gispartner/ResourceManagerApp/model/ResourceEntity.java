@@ -15,7 +15,7 @@ public class ResourceEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long resourceId;
+    private Long id;
     private String name;
 //    @ManyToOne
 //    @JoinColumn

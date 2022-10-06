@@ -12,11 +12,10 @@ import pl.gispartner.ResourceManagerApp.persistance.UserRepository;
 public class UserService {
 
     private final UserRepository userRepository;
-    private final UserMapper userMapper;
 
     public Long saveUser(UserDto userDto) {
-        UserEntity userEntity = userRepository.save(userMapper.mapToEntity(userDto));
-        return userEntity.getUserId();
+        UserEntity userEntity = userRepository.save(UserMapper.mapToEntity(userDto));
+        return userEntity.getId();
     }
 
     public void deleteUser(Long userId) {

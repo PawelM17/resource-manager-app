@@ -9,6 +9,6 @@ import pl.gispartner.ResourceManagerApp.model.UserEntity;
 @Repository
 public interface UserRepository extends JpaRepository<UserEntity, Long> {
     @Modifying
-    @Query(value = "UPDATE UserEntity SET name = :name WHERE userId = :userId")
-    void updateUserName(Long userId, String name);
+    @Query(value = "UPDATE UserEntity SET name = :name WHERE id = :id")
+    void updateUserName(Long id, String name);
 }

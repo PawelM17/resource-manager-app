@@ -7,6 +7,6 @@ import lombok.*;
 @AllArgsConstructor
 public class ResourceDto {
 
-    private Long resourceId;
+    private Long id;
     private String name;
 }
