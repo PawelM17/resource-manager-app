@@ -11,7 +11,7 @@ import javax.persistence.*;
 @AllArgsConstructor
 @ToString
 @Builder
-public class UserEntity {
+public class UserEntity extends AuditableBase {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -20,10 +20,9 @@ public class UserEntity {
     private String firstName;
     private String lastName;
 
-//    @OneToMany
-//    private List<ResourceEntity> resourceEntityList = new ArrayList<>(); TODO
-//    private String creationDate; TODO
-//    private String modificationDate; TODO
+//    @OneToMany(targetEntity = ResourceEntity.class, cascade = CascadeType.ALL)
+//    @JoinColumn(name = "user_id", referencedColumnName = "id")
+//    private List<ResourceEntity> resourceEntityList;
 //    private String userType; TODO
 
 }

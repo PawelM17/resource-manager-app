@@ -11,17 +11,16 @@ import javax.persistence.*;
 @AllArgsConstructor
 @ToString
 @Builder
-public class ResourceEntity {
+public class ResourceEntity extends AuditableBase {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String name;
+
 //    @ManyToOne
 //    @JoinColumn
-//    private UserEntity userEntity; TODO
-//    private Date creationDate; TODO
-//    private Date modificationDate; TODO
+//    private UserEntity userEntity;
 //    private String resourceType; TODO
 
 }
