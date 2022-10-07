@@ -17,10 +17,11 @@ public class ResourceEntity extends AuditableBase {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String name;
+    @Enumerated(EnumType.STRING)
+    private ResourceType resourceType;
 
 //    @ManyToOne
 //    @JoinColumn
-//    private UserEntity userEntity;
-//    private String resourceType; TODO
+//    private UserEntity userEntity; TODO
 
 }

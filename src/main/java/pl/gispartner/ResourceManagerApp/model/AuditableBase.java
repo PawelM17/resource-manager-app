@@ -21,6 +21,7 @@ public class AuditableBase {
     @Temporal(TemporalType.TIMESTAMP)
     @CreatedDate
     private Date createdDate;
+
     @Temporal(TemporalType.TIMESTAMP)
     @LastModifiedDate
     private Date modifiedDate;

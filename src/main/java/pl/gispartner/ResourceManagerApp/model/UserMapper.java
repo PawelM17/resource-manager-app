@@ -8,6 +8,7 @@ public class UserMapper {
                 .name(userDto.getName())
                 .firstName(userDto.getFirstName())
                 .lastName(userDto.getLastName())
+                .userType(userDto.getUserType())
                 .build();
     }
 }

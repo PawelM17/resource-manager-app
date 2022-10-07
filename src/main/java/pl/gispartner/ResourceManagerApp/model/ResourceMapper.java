@@ -6,6 +6,7 @@ public class ResourceMapper {
         return ResourceEntity.builder()
                 .id(resourceDto.getId())
                 .name(resourceDto.getName())
+                .resourceType(resourceDto.getResourceType())
                 .build();
     }
 }

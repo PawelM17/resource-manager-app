@@ -19,10 +19,11 @@ public class UserEntity extends AuditableBase {
     private String name;
     private String firstName;
     private String lastName;
+    @Enumerated(EnumType.STRING)
+    private UserType userType;
 
 //    @OneToMany(targetEntity = ResourceEntity.class, cascade = CascadeType.ALL)
 //    @JoinColumn(name = "user_id", referencedColumnName = "id")
-//    private List<ResourceEntity> resourceEntityList;
-//    private String userType; TODO
+//    private List<ResourceEntity> resourceEntityList; TODO
 
 }
