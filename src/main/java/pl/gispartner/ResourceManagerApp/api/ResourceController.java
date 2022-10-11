@@ -1,6 +1,6 @@
 package pl.gispartner.ResourceManagerApp.api;
 
-
+import com.fasterxml.jackson.databind.JsonNode;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import pl.gispartner.ResourceManagerApp.model.ResourceDto;
@@ -21,6 +21,16 @@ public class ResourceController {
     @DeleteMapping("/{resourceId}")
     public void deleteResource(@PathVariable("resourceId") Long resourceId) {
         resourceService.deleteResource(resourceId);
+    }
+
+    @PutMapping("/name/{resourceId}")
+    public void updateResourceName(@PathVariable("resourceId") Long resourceId, @RequestBody String newResourceName) {
+        resourceService.updateResourceName(resourceId, newResourceName);
+    }
+
+    @PutMapping("/data/{resourceId}")
+    public void updateJsonData(@PathVariable("resourceId") Long resourceId, @RequestBody JsonNode newJsonData) {
+        resourceService.updateJsonData(resourceId, newJsonData);
     }
 
 }

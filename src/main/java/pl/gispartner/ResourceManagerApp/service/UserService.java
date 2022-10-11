@@ -30,7 +30,5 @@ public class UserService {
         userRepository.updateUserName(userId, newUserName);
         UserEntity userEntity = userRepository.getReferenceById(userId);
         userEntity.setModifiedDate(new Date());
-
-
     }
 }

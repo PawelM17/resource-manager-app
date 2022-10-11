@@ -3,6 +3,7 @@ package pl.gispartner.ResourceManagerApp.model;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Getter
@@ -19,11 +20,12 @@ public class UserEntity extends AuditableBase {
     private String name;
     private String firstName;
     private String lastName;
+
     @Enumerated(EnumType.STRING)
     private UserType userType;
 
-//    @OneToMany(targetEntity = ResourceEntity.class, cascade = CascadeType.ALL)
-//    @JoinColumn(name = "user_id", referencedColumnName = "id")
-//    private List<ResourceEntity> resourceEntityList; TODO
+    @OneToMany(mappedBy = "user")
+    @ToString.Exclude
+    private List<ResourceEntity> resources;
 
 }
