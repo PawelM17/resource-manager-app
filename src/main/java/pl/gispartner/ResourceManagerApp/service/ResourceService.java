@@ -12,6 +12,9 @@ import pl.gispartner.ResourceManagerApp.persistance.ResourceRepository;
 import pl.gispartner.ResourceManagerApp.persistance.UserRepository;
 
 import java.util.Date;
+import java.util.Objects;
+
+import static pl.gispartner.ResourceManagerApp.model.UserType.SUPER_USER;
 
 @Service
 @RequiredArgsConstructor
@@ -23,8 +26,10 @@ public class ResourceService {
     public Long saveResource(ResourceDto resourceDto) {
         ResourceEntity resourceEntity = ResourceMapper.mapToEntity(resourceDto);
         UserEntity userEntity = userRepository.getReferenceById(resourceDto.getOwnerId());
+
         resourceEntity.setUser(userEntity);
         resourceEntity.setJsonData(ResourceMapper.saveToString(resourceDto.getJsonData()));
+
         ResourceEntity created = resourceRepository.save(resourceEntity);
         return created.getId();
     }
@@ -45,6 +50,12 @@ public class ResourceService {
         resourceRepository.updateJsonData(resourceId, newJsonData);
         ResourceEntity resourceEntity = resourceRepository.getReferenceById(resourceId);
         resourceEntity.setModifiedDate(new Date());
+    }
+
+    public boolean validateResourceOwner(Long userId, Long resourceId) {
+        ResourceEntity resourceEntity = resourceRepository.getReferenceById(resourceId);
+        UserEntity userEntity = userRepository.getReferenceById(userId);
+        return Objects.equals(userId, resourceEntity.getUser().getId()) || userEntity.getUserType().equals(SUPER_USER);
     }
 
 }

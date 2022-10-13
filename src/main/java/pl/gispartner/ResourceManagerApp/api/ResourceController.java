@@ -19,18 +19,33 @@ public class ResourceController {
     }
 
     @DeleteMapping("/{resourceId}")
-    public void deleteResource(@PathVariable("resourceId") Long resourceId) {
-        resourceService.deleteResource(resourceId);
+    public String deleteResource(@PathVariable("resourceId") Long resourceId, @RequestHeader Long userId) {
+        if (resourceService.validateResourceOwner(userId, resourceId)) {
+            resourceService.deleteResource(resourceId);
+            return "Changes have been successfully saved";
+        } else {
+            return "This operation cannot be performed";
+        }
     }
 
-    @PutMapping("/name/{resourceId}")
-    public void updateResourceName(@PathVariable("resourceId") Long resourceId, @RequestBody String newResourceName) {
-        resourceService.updateResourceName(resourceId, newResourceName);
+    @PutMapping("/{resourceId}/name")
+    public String updateResourceName(@PathVariable("resourceId") Long resourceId, @RequestBody String newResourceName, @RequestHeader Long userId) {
+        if (resourceService.validateResourceOwner(userId, resourceId)) {
+            resourceService.updateResourceName(resourceId, newResourceName);
+            return "Changes have been successfully saved";
+        } else {
+            return "This operation cannot be performed";
+        }
     }
 
-    @PutMapping("/data/{resourceId}")
-    public void updateJsonData(@PathVariable("resourceId") Long resourceId, @RequestBody JsonNode newJsonData) {
-        resourceService.updateJsonData(resourceId, newJsonData);
+    @PutMapping("/{resourceId}/data")
+    public String updateJsonData(@PathVariable("resourceId") Long resourceId, @RequestBody JsonNode newJsonData, @RequestHeader Long userId) {
+        if (resourceService.validateResourceOwner(userId, resourceId)) {
+            resourceService.updateJsonData(resourceId, newJsonData);
+            return "Changes have been successfully saved";
+        } else {
+            return "This operation cannot be performed";
+        }
     }
 
 }

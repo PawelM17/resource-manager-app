@@ -9,6 +9,9 @@ import pl.gispartner.ResourceManagerApp.model.UserMapper;
 import pl.gispartner.ResourceManagerApp.persistance.UserRepository;
 
 import java.util.Date;
+import java.util.Objects;
+
+import static pl.gispartner.ResourceManagerApp.model.UserType.SUPER_USER;
 
 @Service
 @RequiredArgsConstructor
@@ -30,5 +33,10 @@ public class UserService {
         userRepository.updateUserName(userId, newUserName);
         UserEntity userEntity = userRepository.getReferenceById(userId);
         userEntity.setModifiedDate(new Date());
+    }
+
+    public boolean validateUser(Long id, Long userId) {
+        UserEntity userEntity = userRepository.getReferenceById(id);
+        return Objects.equals(id, userId) || userEntity.getUserType().equals(SUPER_USER);
     }
 }

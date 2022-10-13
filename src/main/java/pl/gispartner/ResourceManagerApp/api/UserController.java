@@ -19,12 +19,22 @@ public class UserController {
     }
 
     @DeleteMapping("/{userId}")
-    public void deleteUser(@PathVariable("userId") Long userId) {
-        userService.deleteUser(userId);
+    public String deleteUser(@PathVariable("userId") Long userId, @RequestHeader Long id) {
+        if (userService.validateUser(id, userId)) {
+            userService.deleteUser(userId);
+            return "Changes have been successfully saved";
+        } else {
+            return "This operation cannot be performed";
+        }
     }
 
-    @PutMapping("/{userId}")
-    public void updateUserName(@PathVariable("userId") Long userId, @RequestBody String newUserName) {
-        userService.updateUserName(userId, newUserName);
+    @PutMapping("/{userId}/name")
+    public String updateUserName(@PathVariable("userId") Long userId, @RequestBody String newUserName, @RequestHeader Long id) {
+        if (userService.validateUser(id, userId)) {
+            userService.updateUserName(userId, newUserName);
+            return "Changes have been successfully saved";
+        } else {
+            return "This operation cannot be performed";
+        }
     }
 }
