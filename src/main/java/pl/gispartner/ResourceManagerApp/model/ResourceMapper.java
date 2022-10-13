@@ -3,10 +3,16 @@ package pl.gispartner.ResourceManagerApp.model;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.SerializationFeature;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Component;
 
+@RequiredArgsConstructor
+@Component
 public class ResourceMapper {
-    public static ResourceEntity mapToEntity(ResourceDto resourceDto) {
+
+    private final ObjectMapper objectMapper;
+
+    public ResourceEntity mapToEntity(ResourceDto resourceDto) {
         return ResourceEntity.builder()
                 .id(resourceDto.getId())
                 .name(resourceDto.getName())
@@ -14,9 +20,17 @@ public class ResourceMapper {
                 .build();
     }
 
-    public static String saveToString(JsonNode jsonData) {
-        ObjectMapper objectMapper = new ObjectMapper();
-        objectMapper.configure(SerializationFeature.FAIL_ON_EMPTY_BEANS, false);
+    public ResourceDto mapToDto(ResourceEntity resourceEntity) {
+        return ResourceDto.builder()
+                .id(resourceEntity.getId())
+                .name(resourceEntity.getName())
+                .resourceType(resourceEntity.getResourceType())
+                .ownerId(resourceEntity.getUser().getId())
+                .jsonData(saveToJson(resourceEntity.getJsonData()))
+                .build();
+    }
+
+    public String saveToString(JsonNode jsonData) {
         String data;
         try {
             data = objectMapper.writeValueAsString(jsonData);
@@ -24,6 +38,16 @@ public class ResourceMapper {
             throw new RuntimeException(e);
         }
         return data;
+    }
+
+    public JsonNode saveToJson(String stringData) {
+        JsonNode jsonData;
+        try {
+            jsonData = objectMapper.readTree(stringData);
+        } catch (JsonProcessingException e) {
+            throw new RuntimeException(e);
+        }
+        return jsonData;
     }
 
 }

@@ -19,24 +19,37 @@ public class UserService {
 
     private final UserRepository userRepository;
 
+    public UserDto getUser(Long userId) {
+        return UserMapper.mapToDto(userRepository.getReferenceById(userId));
+    }
+
     public Long saveUser(UserDto userDto) {
         UserEntity userEntity = userRepository.save(UserMapper.mapToEntity(userDto));
         return userEntity.getId();
     }
 
-    public void deleteUser(Long userId) {
+    public String deleteUser(Long userId, Long id) {
+        if (!isUserValid(id, userId)) {
+            return "This operation cannot be performed";
+        }
         userRepository.deleteById(userId);
+        return "Changes have been successfully saved";
     }
 
     @Transactional
-    public void updateUserName(Long userId, String newUserName) {
-        userRepository.updateUserName(userId, newUserName);
-        UserEntity userEntity = userRepository.getReferenceById(userId);
+    public String updateUserName(Long userId, String newUserName, Long id) {
+        if (!isUserValid(id, userId)) {
+            return "This operation cannot be performed";
+        }
+        UserEntity userEntity = userRepository.findById(userId)
+                .orElseThrow(() -> new RuntimeException("User not found"));
+        userEntity.setName(newUserName);
         userEntity.setModifiedDate(new Date());
+        return "Changes have been successfully saved";
     }
 
-    public boolean validateUser(Long id, Long userId) {
+    public boolean isUserValid(Long id, Long userId) {
         UserEntity userEntity = userRepository.getReferenceById(id);
-        return Objects.equals(id, userId) || userEntity.getUserType().equals(SUPER_USER);
+        return Objects.equals(id, userId) || Objects.equals(userEntity.getUserType(), SUPER_USER);
     }
 }

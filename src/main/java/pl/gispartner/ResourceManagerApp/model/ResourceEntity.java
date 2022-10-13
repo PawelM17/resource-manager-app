@@ -9,7 +9,7 @@ import org.hibernate.annotations.TypeDefs;
 
 import javax.persistence.*;
 import java.util.Objects;
-
+@Table(name = "resources")
 @Entity
 @Getter
 @Setter
