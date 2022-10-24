@@ -1,5 +1,6 @@
 package pl.gispartner.ResourceManagerApp.exceptions;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
@@ -7,10 +8,10 @@ import lombok.Setter;
 @Getter
 @Setter
 @RequiredArgsConstructor
-public class ErrorObject {
+@AllArgsConstructor
+public class ErrorMessage {
 
     private Integer statusCode;
     private String message;
     private Long timeStamp;
-
 }

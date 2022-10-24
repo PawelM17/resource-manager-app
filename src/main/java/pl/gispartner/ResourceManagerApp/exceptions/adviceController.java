@@ -9,29 +9,20 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 public class adviceController {
 
     @ExceptionHandler
-    public ResponseEntity<ErrorObject> handleUserNotFoundException(UserNotFoundException userNotFoundException) {
-        ErrorObject errorObject = new ErrorObject();
-        errorObject.setStatusCode(HttpStatus.NOT_FOUND.value());
-        errorObject.setMessage(userNotFoundException.getMessage());
-        errorObject.setTimeStamp(System.currentTimeMillis());
-        return new ResponseEntity<>(errorObject, HttpStatus.NOT_FOUND);
+    public ResponseEntity<ErrorMessage> handleUserNotFoundException(UserNotFoundException userNotFoundException) {
+        ErrorMessage errorMessage = new ErrorMessage(HttpStatus.NOT_FOUND.value(), userNotFoundException.getMessage(), System.currentTimeMillis());
+        return new ResponseEntity<>(errorMessage, HttpStatus.NOT_FOUND);
     }
 
     @ExceptionHandler
-    public ResponseEntity<ErrorObject> handleResourceNotFoundException(ResourceNotFoundException resourceNotFoundException) {
-        ErrorObject errorObject = new ErrorObject();
-        errorObject.setStatusCode(HttpStatus.NOT_FOUND.value());
-        errorObject.setMessage(resourceNotFoundException.getMessage());
-        errorObject.setTimeStamp(System.currentTimeMillis());
-        return new ResponseEntity<>(errorObject, HttpStatus.NOT_FOUND);
+    public ResponseEntity<ErrorMessage> handleResourceNotFoundException(ResourceNotFoundException resourceNotFoundException) {
+        ErrorMessage errorMessage = new ErrorMessage(HttpStatus.NOT_FOUND.value(), resourceNotFoundException.getMessage(), System.currentTimeMillis());
+        return new ResponseEntity<>(errorMessage, HttpStatus.NOT_FOUND);
     }
 
     @ExceptionHandler
-    public ResponseEntity<ErrorObject> handleUserAuthorityMissingException(UserAuthorityMissingException userAuthorityMissingException) {
-        ErrorObject errorObject = new ErrorObject();
-        errorObject.setStatusCode(HttpStatus.UNAUTHORIZED.value());
-        errorObject.setMessage(userAuthorityMissingException.getMessage());
-        errorObject.setTimeStamp(System.currentTimeMillis());
-        return new ResponseEntity<>(errorObject, HttpStatus.UNAUTHORIZED);
+    public ResponseEntity<ErrorMessage> handleUserAuthorityMissingException(UserAuthorityMissingException userAuthorityMissingException) {
+        ErrorMessage errorMessage = new ErrorMessage(HttpStatus.UNAUTHORIZED.value(), userAuthorityMissingException.getMessage(), System.currentTimeMillis());
+        return new ResponseEntity<>(errorMessage, HttpStatus.UNAUTHORIZED);
     }
 }
