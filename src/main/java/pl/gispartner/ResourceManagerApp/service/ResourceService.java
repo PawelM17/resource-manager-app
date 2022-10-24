@@ -5,6 +5,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import pl.gispartner.ResourceManagerApp.exceptions.ResourceNotFoundException;
+import pl.gispartner.ResourceManagerApp.exceptions.UserAuthorityMissingException;
 import pl.gispartner.ResourceManagerApp.exceptions.UserNotFoundException;
 import pl.gispartner.ResourceManagerApp.model.ResourceDto;
 import pl.gispartner.ResourceManagerApp.model.ResourceEntity;
@@ -54,7 +55,7 @@ public class ResourceService {
 
     public String deleteResource(Long resourceId, Long userId) {
         if (!isUserValid(userId, resourceId)) {
-            return "This operation cannot be performed - lack of authority";
+            throw new UserAuthorityMissingException("This operation cannot be performed - lack of authority");
         }
         resourceRepository.deleteById(resourceId);
         return "Changes have been successfully saved";
@@ -63,7 +64,7 @@ public class ResourceService {
     @Transactional
     public String updateResourceName(Long resourceId, String newResourceName, Long userId) {
         if (!isUserValid(userId, resourceId)) {
-            return "This operation cannot be performed - lack of authority";
+            throw new UserAuthorityMissingException("This operation cannot be performed - lack of authority");
         }
         ResourceEntity resourceEntity = resourceRepository.findById(resourceId)
                 .orElseThrow(() -> new ResourceNotFoundException("Resource is not found for id = " + resourceId));
@@ -75,7 +76,7 @@ public class ResourceService {
     @Transactional
     public String updateJsonData(Long resourceId, JsonNode newJsonData, Long userId) {
         if (!isUserValid(userId, resourceId)) {
-            return "This operation cannot be performed - lack of authority";
+            throw new UserAuthorityMissingException("This operation cannot be performed - lack of authority");
         }
         ResourceEntity resourceEntity = resourceRepository.findById(resourceId)
                 .orElseThrow(() -> new ResourceNotFoundException("Resource is not found for id = " + resourceId));

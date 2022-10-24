@@ -16,6 +16,7 @@ public class adviceController {
         errorObject.setTimeStamp(System.currentTimeMillis());
         return new ResponseEntity<>(errorObject, HttpStatus.NOT_FOUND);
     }
+
     @ExceptionHandler
     public ResponseEntity<ErrorObject> handleResourceNotFoundException(ResourceNotFoundException resourceNotFoundException) {
         ErrorObject errorObject = new ErrorObject();
@@ -23,5 +24,14 @@ public class adviceController {
         errorObject.setMessage(resourceNotFoundException.getMessage());
         errorObject.setTimeStamp(System.currentTimeMillis());
         return new ResponseEntity<>(errorObject, HttpStatus.NOT_FOUND);
+    }
+
+    @ExceptionHandler
+    public ResponseEntity<ErrorObject> handleUserAuthorityMissingException(UserAuthorityMissingException userAuthorityMissingException) {
+        ErrorObject errorObject = new ErrorObject();
+        errorObject.setStatusCode(HttpStatus.UNAUTHORIZED.value());
+        errorObject.setMessage(userAuthorityMissingException.getMessage());
+        errorObject.setTimeStamp(System.currentTimeMillis());
+        return new ResponseEntity<>(errorObject, HttpStatus.UNAUTHORIZED);
     }
 }
