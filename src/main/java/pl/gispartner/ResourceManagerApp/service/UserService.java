@@ -3,6 +3,8 @@ package pl.gispartner.ResourceManagerApp.service;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import pl.gispartner.ResourceManagerApp.exceptions.UserAuthorityMissingException;
+import pl.gispartner.ResourceManagerApp.exceptions.UserNotFoundException;
 import pl.gispartner.ResourceManagerApp.model.UserDto;
 import pl.gispartner.ResourceManagerApp.model.UserEntity;
 import pl.gispartner.ResourceManagerApp.model.UserMapper;
@@ -20,7 +22,9 @@ public class UserService {
     private final UserRepository userRepository;
 
     public UserDto getUser(Long userId) {
-        return UserMapper.mapToDto(userRepository.getReferenceById(userId));
+        UserEntity userEntity = userRepository.findById(userId)
+                .orElseThrow(() -> new UserNotFoundException("User is not found for id = " + userId));
+        return UserMapper.mapToDto(userEntity);
     }
 
     public Long saveUser(UserDto userDto) {
@@ -29,8 +33,8 @@ public class UserService {
     }
 
     public String deleteUser(Long userId, Long id) {
-        if (!isUserValid(id, userId)) {
-            return "This operation cannot be performed";
+        if (!isUserValid(userId, id)) {
+            throw new UserAuthorityMissingException("This operation cannot be performed - lack of authority");
         }
         userRepository.deleteById(userId);
         return "Changes have been successfully saved";
@@ -38,18 +42,22 @@ public class UserService {
 
     @Transactional
     public String updateUserName(Long userId, String newUserName, Long id) {
-        if (!isUserValid(id, userId)) {
-            return "This operation cannot be performed";
+        if (!isUserValid(userId, id)) {
+            throw new UserAuthorityMissingException("This operation cannot be performed - lack of authority");
         }
         UserEntity userEntity = userRepository.findById(userId)
-                .orElseThrow(() -> new RuntimeException("User not found"));
+                .orElseThrow(() -> new UserNotFoundException("User is not found for id = " + userId));
         userEntity.setName(newUserName);
         userEntity.setModifiedDate(new Date());
         return "Changes have been successfully saved";
     }
 
-    public boolean isUserValid(Long id, Long userId) {
-        UserEntity userEntity = userRepository.getReferenceById(id);
-        return Objects.equals(id, userId) || Objects.equals(userEntity.getUserType(), SUPER_USER);
+    public boolean isUserValid(Long userId, Long id) {
+        if (!userRepository.existsById(userId)) {
+            throw new UserNotFoundException("User is not found for id = " + userId);
+        }
+        UserEntity userEntity = userRepository.findById(id)
+                .orElseThrow(() -> new UserNotFoundException("User is not found for id = " + id));
+        return Objects.equals(userId, id) || Objects.equals(userEntity.getUserType(), SUPER_USER);
     }
 }
