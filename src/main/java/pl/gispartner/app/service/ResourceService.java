@@ -1,24 +1,24 @@
-package pl.gispartner.ResourceManagerApp.service;
+package pl.gispartner.app.service;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import pl.gispartner.ResourceManagerApp.exceptions.ResourceNotFoundException;
-import pl.gispartner.ResourceManagerApp.exceptions.UserAuthorityMissingException;
-import pl.gispartner.ResourceManagerApp.exceptions.UserNotFoundException;
-import pl.gispartner.ResourceManagerApp.model.ResourceDto;
-import pl.gispartner.ResourceManagerApp.model.ResourceEntity;
-import pl.gispartner.ResourceManagerApp.model.ResourceMapper;
-import pl.gispartner.ResourceManagerApp.model.UserEntity;
-import pl.gispartner.ResourceManagerApp.persistance.ResourceRepository;
-import pl.gispartner.ResourceManagerApp.persistance.UserRepository;
+import pl.gispartner.app.exceptions.ResourceNotFoundException;
+import pl.gispartner.app.exceptions.UserAuthorityMissingException;
+import pl.gispartner.app.exceptions.UserNotFoundException;
+import pl.gispartner.app.model.ResourceDto;
+import pl.gispartner.app.model.ResourceEntity;
+import pl.gispartner.app.model.ResourceMapper;
+import pl.gispartner.app.model.UserEntity;
+import pl.gispartner.app.persistance.ResourceRepository;
+import pl.gispartner.app.persistance.UserRepository;
 
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 
-import static pl.gispartner.ResourceManagerApp.model.UserType.SUPER_USER;
+import static pl.gispartner.app.model.UserType.SUPER_USER;
 
 @Service
 @RequiredArgsConstructor

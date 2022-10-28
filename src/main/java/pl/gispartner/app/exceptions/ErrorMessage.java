@@ -1,4 +1,4 @@
-package pl.gispartner.ResourceManagerApp.exceptions;
+package pl.gispartner.app.exceptions;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

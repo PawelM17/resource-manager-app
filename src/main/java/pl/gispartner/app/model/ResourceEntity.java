@@ -1,4 +1,4 @@
-package pl.gispartner.ResourceManagerApp.model;
+package pl.gispartner.app.model;
 
 import com.vladmihalcea.hibernate.type.json.JsonBinaryType;
 import lombok.*;
