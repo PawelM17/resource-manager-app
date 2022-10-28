@@ -1,4 +1,4 @@
-package pl.gispartner.ResourceManagerApp.exceptions;
+package pl.gispartner.app.exceptions;
 
 public class ResourceNotFoundException extends RuntimeException {
     public ResourceNotFoundException(String message) {

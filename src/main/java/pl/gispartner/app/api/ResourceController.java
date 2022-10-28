@@ -1,10 +1,10 @@
-package pl.gispartner.ResourceManagerApp.api;
+package pl.gispartner.app.api;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
-import pl.gispartner.ResourceManagerApp.model.ResourceDto;
-import pl.gispartner.ResourceManagerApp.service.ResourceService;
+import pl.gispartner.app.model.ResourceDto;
+import pl.gispartner.app.service.ResourceService;
 
 import java.util.List;
 

@@ -1,4 +1,4 @@
-package pl.gispartner.ResourceManagerApp.configuration;
+package pl.gispartner.app.configuration;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
