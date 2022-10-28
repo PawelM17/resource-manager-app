@@ -1,0 +1,37 @@
+version: "3.8"
+services:
+  app:
+    container_name: resource-manager-app
+    image: resource-manager-app
+    build: ./
+    networks:
+      - resource-manager-net
+    ports:
+      - "8080:8080"
+    environment:
+      DB_HOST: postgres-db
+      POSTGRES_URL: jdbc:postgresql://postgres-db:5432/resource_manager_app_db
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres1209
+      POSTGRES_PORT: 5432
+    depends_on:
+      - postgres-db
+
+  postgres-db:
+    container_name: postgres
+    image: postgres
+    volumes:
+      - db-store:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres1209
+      POSTGRES_DB: resource_manager_app_db
+    networks:
+      - resource-manager-net
+networks:
+  resource-manager-net:
+volumes:
+  db-store:
+

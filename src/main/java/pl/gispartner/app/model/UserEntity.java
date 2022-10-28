@@ -1,4 +1,4 @@
-package pl.gispartner.ResourceManagerApp.model;
+package pl.gispartner.app.model;
 
 import lombok.*;
 import org.hibernate.Hibernate;
@@ -6,6 +6,7 @@ import org.hibernate.Hibernate;
 import javax.persistence.*;
 import java.util.List;
 import java.util.Objects;
+
 @Table(name = "users")
 @Entity
 @Getter
@@ -26,7 +27,7 @@ public class UserEntity extends AuditableBase {
     @Enumerated(EnumType.STRING)
     private UserType userType;
 
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE)
     @ToString.Exclude
     private List<ResourceEntity> resources;
 

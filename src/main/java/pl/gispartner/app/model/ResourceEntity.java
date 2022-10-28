@@ -1,4 +1,4 @@
-package pl.gispartner.ResourceManagerApp.model;
+package pl.gispartner.app.model;
 
 import com.vladmihalcea.hibernate.type.json.JsonBinaryType;
 import lombok.*;
@@ -9,6 +9,7 @@ import org.hibernate.annotations.TypeDefs;
 
 import javax.persistence.*;
 import java.util.Objects;
+
 @Table(name = "resources")
 @Entity
 @Getter
@@ -29,7 +30,7 @@ public class ResourceEntity extends AuditableBase {
     @Enumerated(EnumType.STRING)
     private ResourceType resourceType;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn
     private UserEntity user;
 

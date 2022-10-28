@@ -1,9 +1,9 @@
-package pl.gispartner.ResourceManagerApp.api;
+package pl.gispartner.app.api;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
-import pl.gispartner.ResourceManagerApp.model.UserDto;
-import pl.gispartner.ResourceManagerApp.service.UserService;
+import pl.gispartner.app.model.UserDto;
+import pl.gispartner.app.service.UserService;
 
 @RestController
 @RequestMapping("/api/user")

@@ -1,8 +1,8 @@
-package pl.gispartner.ResourceManagerApp.persistance;
+package pl.gispartner.app.persistance;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
-import pl.gispartner.ResourceManagerApp.model.ResourceEntity;
+import pl.gispartner.app.model.ResourceEntity;
 
 
 @Repository

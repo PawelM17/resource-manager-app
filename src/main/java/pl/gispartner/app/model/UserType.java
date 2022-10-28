@@ -1,4 +1,4 @@
-package pl.gispartner.ResourceManagerApp.model;
+package pl.gispartner.app.model;
 
 public enum UserType {
     DEFAULT,

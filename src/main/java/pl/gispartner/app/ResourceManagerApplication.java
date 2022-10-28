@@ -1,4 +1,4 @@
-package pl.gispartner.ResourceManagerApp;
+package pl.gispartner.app;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

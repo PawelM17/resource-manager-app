@@ -1,4 +1,4 @@
-package pl.gispartner.ResourceManagerApp.model;
+package pl.gispartner.app.model;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import lombok.*;
